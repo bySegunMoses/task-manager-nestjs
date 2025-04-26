@@ -14,27 +14,7 @@ export class TasksService {
   }
 
   async findAll(query: any): Promise<Task[]> {
-    const { status, priority, page = 1, limit = 10 } = query;
-
-    // Define types for status and priority
-    const filter: any = {};
-
-    // Ensure status and priority are from the TaskStatus and TaskPriority enums
-    if (status) {
-      filter.status = status;
-    }
-    if (priority) {
-      filter.priority = priority;
-    }
-
-    // Pagination logic
-    const skip = (page - 1) * limit;
-    const tasks = await this.taskModel
-      .find(filter)
-      .skip(skip)
-      .limit(Number(limit))
-      .exec();
-    return tasks;
+    return this.taskModel.find(query).exec();
   }
 
   async findOne(id: string): Promise<Task> {
