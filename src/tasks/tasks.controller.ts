@@ -8,6 +8,7 @@ import {
   Param,
   Patch,
   Delete,
+  Render,
 } from '@nestjs/common';
 import { TasksService } from './tasks.service';
 import { CreateTaskDto, UpdateTaskDto } from './dto';
@@ -15,6 +16,15 @@ import { CreateTaskDto, UpdateTaskDto } from './dto';
 @Controller('tasks')
 export class TasksController {
   constructor(private readonly tasksService: TasksService) {}
+
+  // This is the GET route that handles rendering tasks
+  @Get()
+  @Render('tasks') // This will render the 'tasks.ejs' file
+  async getTasks(@Query() query: any) {
+    // Fetch tasks based on query parameters (like filtering, pagination, etc.)
+    const tasks = await this.tasksService.findAll(query);
+    return { tasks }; // Pass the tasks to the view template (ejs)
+  }
 
   @Post()
   create(@Body() createTaskDto: CreateTaskDto) {

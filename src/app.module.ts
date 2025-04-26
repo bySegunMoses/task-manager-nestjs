@@ -5,8 +5,8 @@ import { TasksModule } from './tasks/tasks.module';
 
 @Module({
   imports: [
-    ConfigModule.forRoot({ isGlobal: true }), // Load environment variables globally
-    MongooseModule.forRoot(process.env.MONGODB_URI || ''), // Default to empty string if undefined
+    ConfigModule.forRoot(), // Load environment variables
+    MongooseModule.forRoot(process.env.MONGODB_URI), // Use connection string
     TasksModule,
   ],
 })
