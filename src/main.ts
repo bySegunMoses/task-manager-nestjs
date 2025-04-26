@@ -10,6 +10,10 @@ async function bootstrap() {
   app.setBaseViewsDir(join(__dirname, '..', 'views'));
   app.setViewEngine('pug');
 
-  await app.listen(3000);
+  // Use the port assigned by the hosting environment or default to 3000
+  const port = process.env.PORT || 3000;
+  await app.listen(port);
+
+  console.log(`Application is running on: http://localhost:${port}`);
 }
 bootstrap();
